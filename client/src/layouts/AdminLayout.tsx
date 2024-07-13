@@ -444,7 +444,7 @@ const AdminLayout = () => {
               <DropdownMenuSeparator />
              
 
-              <DropdownMenuSeparator />
+           
               <DropdownMenuItem onClick={()=>navigate('/admin/login')}>Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

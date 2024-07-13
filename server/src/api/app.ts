@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express'
 
 import express from 'express'
 import morgan from 'morgan'
@@ -17,7 +17,6 @@ import { adminRouter } from './route/admin.route'
 import { logRouter } from './route/log.route'
 import { propertyRouter } from './route/property.route'
 
-
 export const app = express()
 
 // middlewares
@@ -33,9 +32,14 @@ app.use(
   })
 )
 app.use(express.static(path.join(__dirname, '../../../client/dist')))
+
+// Handle React routing, return all requests to React app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+})
 //routes
 
-app.use('/api/v1/amenities',amenitiesRouter)
+app.use('/api/v1/amenities', amenitiesRouter)
 app.use('/api/v1/dubai-developers', dubaiDevelopersRouter)
 app.use('/api/v1/dubai-areas', dubaiAreasRouter)
 app.use('/api/v1/subscribers', subscriberRouter)
@@ -46,9 +50,8 @@ app.use('/api/v1/settings', adminRouter)
 app.use('/api/v1/logs', logRouter)
 app.use('/api/v1/properties', propertyRouter)
 
-
-app.use(function (err:any, req:Request, res:Response, next:NextFunction) {
-  console.log('This is the invalid field ->', err.fieldName) 
+app.use(function (err: any, req: Request, res: Response, next: NextFunction) {
+  console.log('This is the invalid field ->', err.fieldName)
   console.log('This is the invalid value ->', err.value)
   console.log('This is the error message ->', err.message)
   console.log('This is the error name ->', err.name)
